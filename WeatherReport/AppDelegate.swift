@@ -35,11 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func getCurrentWeather() {
         let location = UserDefaults.standard.string(forKey: "City") ?? "hyderabad"
         let queryParam = "?q=\(location)"
-        if let url = URL(string: WeatherAPIInfo.WEATHER_CURRENT_API + queryParam) {
+        if let url = URL(string: WeatherAPIInfo.weatherCurrentAPI + queryParam) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.setValue(WeatherAPIInfo.WEATHER_API_HOST, forHTTPHeaderField: "x-rapidapi-host")
-            request.setValue(WeatherAPIInfo.WEATHER_API_KEY, forHTTPHeaderField: "x-rapidapi-key")
+            request.setValue(WeatherAPIInfo.weatherAPIHost, forHTTPHeaderField: "x-rapidapi-host")
+            request.setValue(WeatherAPIInfo.weatherAPIKey, forHTTPHeaderField: "x-rapidapi-key")
             URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
                 if error == nil {
                     if let data = data {

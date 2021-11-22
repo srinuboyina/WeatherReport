@@ -26,6 +26,7 @@
 		AC2C2F83274837FC00DA469E /* WeatherDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C2F82274837FC00DA469E /* WeatherDetailsPresenter.swift */; };
 		AC2C2F852748384900DA469E /* WeatherDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C2F842748384900DA469E /* WeatherDetailsRouter.swift */; };
 		AC64F2C7274965100083ADAF /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC64F2C6274965100083ADAF /* WeatherCell.swift */; };
+		ACAEC8BA274BC3C5002CDD2B /* DayWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAEC8B9274BC3C5002CDD2B /* DayWeather.swift */; };
 		ACCA4B84274A2F6B00E5543E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = ACCA4B83274A2F6B00E5543E /* Realm */; };
 		ACCA4B86274A2F6B00E5543E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ACCA4B85274A2F6B00E5543E /* RealmSwift */; };
 		ACCA4B88274A388A00E5543E /* WeatherDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCA4B87274A388A00E5543E /* WeatherDataStorage.swift */; };
@@ -88,6 +89,7 @@
 		AC2C2F82274837FC00DA469E /* WeatherDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailsPresenter.swift; sourceTree = "<group>"; };
 		AC2C2F842748384900DA469E /* WeatherDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailsRouter.swift; sourceTree = "<group>"; };
 		AC64F2C6274965100083ADAF /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
+		ACAEC8B9274BC3C5002CDD2B /* DayWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeather.swift; sourceTree = "<group>"; };
 		ACCA4B87274A388A00E5543E /* WeatherDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataStorage.swift; sourceTree = "<group>"; };
 		ACCA4BC7274A585000E5543E /* KGRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGRadioButton.swift; sourceTree = "<group>"; };
 		ACCA4BCD274A820500E5543E /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		AC2C2F702748210A00DA469E /* entity */ = {
 			isa = PBXGroup;
 			children = (
+				ACAEC8B9274BC3C5002CDD2B /* DayWeather.swift */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCA4B88274A388A00E5543E /* WeatherDataStorage.swift in Sources */,
+				ACAEC8BA274BC3C5002CDD2B /* DayWeather.swift in Sources */,
 				AC2C2F79274821B000DA469E /* WeatherDetailsProtocol.swift in Sources */,
 				AC2C2F7F2748338500DA469E /* WeatherRouter.swift in Sources */,
 				AC64F2C7274965100083ADAF /* WeatherCell.swift in Sources */,

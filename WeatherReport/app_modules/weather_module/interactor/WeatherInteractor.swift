@@ -25,17 +25,25 @@ class WeatherInteractor: PresenterToInteractorProtocol {
             
         } else {
             let queryParam = "?q=\(location)"
-            if let url = URL(string: WeatherAPIInfo.WEATHER_API + queryParam) {
+            if let url = URL(string: WeatherAPIInfo.weatherAPI + queryParam) {
                 var request = URLRequest(url: url)
                 request.httpMethod = "GET"
-                request.setValue(WeatherAPIInfo.WEATHER_API_HOST, forHTTPHeaderField: "x-rapidapi-host")
-                request.setValue(WeatherAPIInfo.WEATHER_API_KEY, forHTTPHeaderField: "x-rapidapi-key")
+                request.setValue(WeatherAPIInfo.weatherAPIHost, forHTTPHeaderField: "x-rapidapi-host")
+                request.setValue(WeatherAPIInfo.weatherAPIKey, forHTTPHeaderField: "x-rapidapi-key")
                 URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
                     
                     if error == nil {
                         if let data = data {
                             let weatherReport = try? JSONDecoder().decode(WeatherReport.self, from: data)
-                            self?.presenter?.weatherReportFetchedSuccess(weatherArray: weatherReport?.list ?? [])
+                            var weathers: [Weather] = []
+                            if let weatherReport = weatherReport {
+                                for var weather in weatherReport.list {
+                                    weather.lat = weatherReport.city.coord.lat
+                                    weather.long = weatherReport.city.coord.lon
+                                    weathers.append(weather)
+                                }
+                                self?.presenter?.weatherReportFetchedSuccess(weatherArray: weathers)
+                            }
                         }
                         
                     } else {

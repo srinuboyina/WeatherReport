@@ -23,6 +23,9 @@ class WeatherDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Weather Details"
+        if let weather = weather, let date = weather.dt, let lat = weather.lat, let long = weather.long {
+            presenter?.getCurrentDayWeatherConditions(date: date, lat: lat, long: long)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,5 +55,11 @@ class WeatherDetailsViewController: UIViewController {
 }
 
 extension WeatherDetailsViewController: PresenterToViewWeatherDetailsProtocol {
-
+    func dayWeatherReportFetched(dayReport: CurrentDayWeather) {
+        
+    }
+    
+    func dayWeatherReportFailed() {
+        
+    }
 }

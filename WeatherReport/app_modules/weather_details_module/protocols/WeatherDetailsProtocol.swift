@@ -11,10 +11,12 @@ protocol ViewToPresenterWeatherDetailsProtocol: class{
     var view: PresenterToViewWeatherDetailsProtocol? {get set}
     var interactor: PresenterToInteractorWeatherDetailsProtocol? {get set}
     var router: PresenterToRouterWeatherDetailsProtocol? {get set}
+    func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double)
 }
 
 protocol PresenterToViewWeatherDetailsProtocol: class{
-
+    func dayWeatherReportFetched(dayReport: CurrentDayWeather)
+    func dayWeatherReportFailed()
 }
 
 protocol PresenterToRouterWeatherDetailsProtocol: class {
@@ -23,7 +25,10 @@ protocol PresenterToRouterWeatherDetailsProtocol: class {
 
 protocol PresenterToInteractorWeatherDetailsProtocol: class {
     var presenter:InteractorToPresenterWeatherDetailsProtocol? {get set}
+    func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double)
 }
 
 protocol InteractorToPresenterWeatherDetailsProtocol: class {
+    func dayWeatherReportFetched(dayReport: CurrentDayWeather)
+    func dayWeatherReportFailed()
 }

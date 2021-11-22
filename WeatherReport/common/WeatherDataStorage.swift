@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class WeatherObject: Object {
+    @objc dynamic var dt = 0.0
     @objc dynamic var average = 0.0
     @objc dynamic var average_max = 0.0
     @objc dynamic var average_min = 0.0
@@ -22,7 +23,7 @@ class WeatherObject: Object {
     
     func getWeather() -> Weather {
         let temp = Temperature(average: average, average_max: average_max, average_min: average_min, record_max: record_max, record_min: record_min)
-        let weather = Weather(date: date, humidity: humidity, pressure: pressure, temp: temp, wind_speed: wind_speed)
+        let weather = Weather(dt: dt, date: date, humidity: humidity, pressure: pressure, temp: temp, wind_speed: wind_speed)
         return weather
     }
 }
@@ -34,6 +35,7 @@ class WeatherDataStore {
             try! realm.write() {
                 for weather in list {
                     let newWeather = WeatherObject()
+                    newWeather.dt = weather.dt
                     newWeather.date = weather.dt.getDate()
                     newWeather.humidity = weather.humidity
                     newWeather.pressure = weather.pressure

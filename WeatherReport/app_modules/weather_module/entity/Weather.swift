@@ -31,7 +31,7 @@ struct City: Codable {
 
 struct Coordinate: Codable {
     var lat: Double!
-    var lan: Double!
+    var lon: Double!
 }
 
 struct Weather: Codable {
@@ -41,8 +41,11 @@ struct Weather: Codable {
     var temp: Temperature!
     var wind_speed: Double!
     var date: String?
+    var lat: Double!
+    var long: Double!
     
-    init(date: String, humidity: Double!, pressure: Double!, temp: Temperature!, wind_speed: Double!) {
+    init(dt: Double!, date: String, humidity: Double!, pressure: Double!, temp: Temperature!, wind_speed: Double!) {
+        self.dt = dt
         self.date = date
         self.humidity = humidity
         self.pressure = pressure

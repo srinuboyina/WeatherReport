@@ -9,11 +9,12 @@
 import Foundation
 
 struct WeatherAPIInfo {
-    static let WEATHER_API = "https://community-open-weather-map.p.rapidapi.com/climate/month"
-    static let WEATHER_CURRENT_API = "https://community-open-weather-map.p.rapidapi.com/weather"
+    static let weatherAPI = "https://community-open-weather-map.p.rapidapi.com/climate/month"
+    static let weatherCurrentAPI = "https://community-open-weather-map.p.rapidapi.com/weather"
+    static let weatherDateAPI = "https://community-open-weather-map.p.rapidapi.com/onecall/timemachine"
     
-    static let WEATHER_API_KEY = "43f5c011a2msh319de1d9ceec936p1189a8jsn2207fd60e7a2"
-    static let WEATHER_API_HOST = "community-open-weather-map.p.rapidapi.com"
+    static let weatherAPIKey = "43f5c011a2msh319de1d9ceec936p1189a8jsn2207fd60e7a2"
+    static let weatherAPIHost = "community-open-weather-map.p.rapidapi.com"
 }
 
 
