@@ -13,7 +13,7 @@ class WeatherDetailsInteractor: PresenterToInteractorWeatherDetailsProtocol {
     
     func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double) {
         let params = ["lat": lat, "lon": long, "dt": date]
-        let url = createURLFromParameters(url: WeatherAPIInfo.weatherDateAPI, parameters: params)
+        let url = createURLFromParameters(parameters: params)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(WeatherAPIInfo.weatherAPIHost, forHTTPHeaderField: "x-rapidapi-host")
@@ -35,7 +35,7 @@ class WeatherDetailsInteractor: PresenterToInteractorWeatherDetailsProtocol {
         }.resume()
     }
     
-    func createURLFromParameters(url: String, parameters: [String:Any]) -> URL {
+    func createURLFromParameters(parameters: [String:Any]) -> URL {
         
         var components = URLComponents()
         components.scheme = "https"

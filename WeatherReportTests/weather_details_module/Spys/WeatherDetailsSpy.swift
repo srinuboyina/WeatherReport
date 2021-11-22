@@ -12,6 +12,17 @@ import XCTest
 @testable import WeatherReport
 
 class WeatherPresenterWeatherDetailsSpy: ViewToPresenterWeatherDetailsProtocol {
+    var getCurrentDayWeatherConditionsCalled = false
+    func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double) {
+        getCurrentDayWeatherConditionsCalled = true
+    }
+    
+    var getValuesCalled = false
+    func getValues(weather: Weather) -> Dictionary<String, String> {
+        getValuesCalled = true
+        return [:]
+    }
+    
     var view: PresenterToViewWeatherDetailsProtocol?
     
     var interactor: PresenterToInteractorWeatherDetailsProtocol?
@@ -30,18 +41,24 @@ class WeatherPresenterWeatherDetailsSpy: ViewToPresenterWeatherDetailsProtocol {
 }
 
 class PresenterToViewWeatherDetailsProtocolSpy: PresenterToViewWeatherDetailsProtocol {
-    var showWeatherReportCalled = false
-    func showWeatherReport(weatherArray: [Weather]) {
-        showWeatherReportCalled = true
+    var dayWeatherReportFetchedCalled = false
+    func dayWeatherReportFetched(dayReport: CurrentDayWeather) {
+        dayWeatherReportFetchedCalled = true
     }
     
-    var showErrorCalled = false
-    func showError() {
-        showErrorCalled = true
+    var dayWeatherReportFailedCalled = false
+    func dayWeatherReportFailed() {
+        dayWeatherReportFailedCalled = true
     }
 }
 
 class PresenterToInteractorWeatherDetailsProtocolSpy: PresenterToInteractorWeatherDetailsProtocol {
+    
+    var getCurrentDayWeatherConditionsCalled = false
+    func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double) {
+        getCurrentDayWeatherConditionsCalled = true
+    }
+    
     var presenter: InteractorToPresenterWeatherDetailsProtocol?
 
     
@@ -52,6 +69,17 @@ class PresenterToInteractorWeatherDetailsProtocolSpy: PresenterToInteractorWeath
  }
 
 class InteractorToPresenterWeatherDetailsProtocolSpy: InteractorToPresenterWeatherDetailsProtocol {
+    
+    var dayWeatherReportFetchedCalled = false
+    func dayWeatherReportFetched(dayReport: CurrentDayWeather) {
+        dayWeatherReportFetchedCalled = true
+    }
+    
+    var dayWeatherReportFailedCalled = false
+    func dayWeatherReportFailed() {
+        dayWeatherReportFailedCalled = true
+    }
+    
     
     var weatherReportFetchedSuccessCalled = false
     func weatherReportFetchedSuccess(weatherArray: [Weather]) {

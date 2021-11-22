@@ -6,12 +6,15 @@
 //  Copyright © 2021 srini. All rights reserved.
 //
 
+import Foundation
+
 protocol ViewToPresenterWeatherDetailsProtocol: class{
     
     var view: PresenterToViewWeatherDetailsProtocol? {get set}
     var interactor: PresenterToInteractorWeatherDetailsProtocol? {get set}
     var router: PresenterToRouterWeatherDetailsProtocol? {get set}
     func getCurrentDayWeatherConditions(date: Double, lat: Double, long: Double)
+    func getValues(weather: Weather) -> Dictionary<String, String>
 }
 
 protocol PresenterToViewWeatherDetailsProtocol: class{

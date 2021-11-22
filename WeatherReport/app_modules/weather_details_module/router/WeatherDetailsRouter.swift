@@ -25,6 +25,4 @@ class WeatherDetailsRouter: PresenterToRouterWeatherDetailsProtocol {
         
         return view
     }
-    
-    
 }

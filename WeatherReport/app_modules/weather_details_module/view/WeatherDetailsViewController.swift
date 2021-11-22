@@ -10,47 +10,72 @@ import UIKit
 
 class WeatherDetailsViewController: UIViewController {
 
-    @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var averageLabel: UILabel!
-    @IBOutlet weak var averageMinLabel: UILabel!
-    @IBOutlet weak var averageMaxLabel: UILabel!
-    @IBOutlet weak var recordMaxLabel: UILabel!
-    @IBOutlet weak var recordMinLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var presenter: ViewToPresenterWeatherDetailsProtocol?
     var weather: Weather?
+    var keyValues: Dictionary<String, String> = Dictionary<String,String>()
+    
+    private let sectionInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 10.0, right: 0.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Weather Details"
         if let weather = weather, let date = weather.dt, let lat = weather.lat, let long = weather.long {
+            self.title = "Weather Details \(date.getDate())"
             presenter?.getCurrentDayWeatherConditions(date: date, lat: lat, long: long)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let weather = weather {
-            var average = weather.temp.average
-            var average_min = weather.temp.average_min
-            var average_max = weather.temp.average_max
-            var record_max = weather.temp.record_max
-            var record_min = weather.temp.record_min
-            
-            if !UserDefaults.standard.bool(forKey: "Fahrenheit") {
-                average = (weather.temp.average - 32) / 1.8
-                average_max = (weather.temp.average_max - 32) / 1.8
-                average_min = (weather.temp.average_min - 32) / 1.8
-                record_max = (weather.temp.record_max - 32) / 1.8
-                record_min = (weather.temp.record_min - 32) / 1.8
-            }
-            windSpeedLabel.text = String(weather.wind_speed!.roundToDecimal(2))
-            averageLabel.text = String(describing: average!.roundToDecimal(2))
-            averageMinLabel.text = String(describing: average_min!.roundToDecimal(2))
-            averageMaxLabel.text = String(describing: average_max!.roundToDecimal(2))
-            recordMinLabel.text = String(describing: record_min!.roundToDecimal(2))
-            recordMaxLabel.text = String(describing: record_max!.roundToDecimal(2))
+        if let weather = weather, let presenter = presenter {
+            keyValues = presenter.getValues(weather: weather)
+            collectionView.reloadData()
         }
+    }
+}
+
+extension WeatherDetailsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return keyValues.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let keyValue = keyValues[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherDetailsCell", for: indexPath) as! WeatherDetailsCell
+        cell.setData(name: keyValue.key, value: keyValue.value)
+        return cell
+    }
+}
+
+extension WeatherDetailsViewController: UICollectionViewDelegateFlowLayout {
+    
+    // 1
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: 120, height: 100)
+    }
+    
+    // 3
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    // 4
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return sectionInsets.left
     }
 }
 
