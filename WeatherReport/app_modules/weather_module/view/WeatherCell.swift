@@ -8,31 +8,30 @@
 
 import UIKit
 
-class WeatherCell: UITableViewCell {
-    
+class WeatherCell: UICollectionViewCell {
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.mainView.layer.cornerRadius = 10
+        self.mainView.layer.shadowColor = UIColor.red.cgColor
+        self.mainView.layer.shadowOpacity = 1
+        self.mainView.layer.shadowOffset = CGSize.zero
+        self.mainView.layer.shadowRadius = 5
     }
     
     func setData(weather: Weather) {
-        let date = Date(timeIntervalSince1970: weather.dt)
-        dateLabel.text = String(describing: date)
-        
-        var average = weather.temp.average
-        var average_min = weather.temp.average_min
-        var average_max = weather.temp.average_max
-        var record_max = weather.temp.record_max
-        var record_min = weather.temp.record_min
-        
-        if !UserDefaults.standard.bool(forKey: "Fahrenheit") {
-            average = (weather.temp.average - 32) / 1.8
-            average_max = (weather.temp.average_max - 32) / 1.8
-            average_min = (weather.temp.average_min - 32) / 1.8
+        if let date = weather.date {
+            dateLabel.text = date
+        } else {
+            dateLabel.text = weather.dt.getDate()
         }
+        let humidity = weather.humidity.roundToDecimal(2)
+        let pressure = weather.pressure.roundToDecimal(2)
+        let wind_speed = weather.wind_speed.roundToDecimal(2)
         
-        temperatureLabel.text = "\(average_max) \(average) \(average_min)"
+        temperatureLabel.text = "Humidity: \(humidity) \nPressure: \(pressure) \nWindSpeed: \(wind_speed)"
     }
 }

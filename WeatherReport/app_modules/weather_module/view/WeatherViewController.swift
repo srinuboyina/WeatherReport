@@ -13,14 +13,16 @@ import RealmSwift
 class WeatherViewController: UIViewController {
     var presenter:ViewToPresenterProtocol?
     var weathers: [Weather] = []
+    private let sectionInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 10.0, right: 0.0)
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Weather"
         activityView.isHidden = false
-        tableView.isHidden = true
+        collectionView.isHidden = true
         getCurrentLocation()
         if presenter == nil {
             presenter = WeatherPresenter()
@@ -55,10 +57,10 @@ extension WeatherViewController: PresenterToViewProtocol {
             if !UserDefaults.standard.bool(forKey: "WeatherDataSaved") {
                 WeatherDataStore.saveDataToDatabase(list: weatherArray)
             }
-            self?.tableView.isHidden = false
-            self?.tableView.dataSource = self
-            self?.tableView.delegate = self
-            self?.tableView.reloadData()
+            self?.collectionView.isHidden = false
+            self?.collectionView.dataSource = self
+            self?.collectionView.delegate = self
+            self?.collectionView.reloadData()
         }
     }
     
@@ -70,37 +72,56 @@ extension WeatherViewController: PresenterToViewProtocol {
 
 }
 
-extension WeatherViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension WeatherViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return weathers.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let weather = weathers[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.detailTextLabel?.backgroundColor = .red
-        var finalText = ""
-        if let dt = weather.dt {
-            finalText = dt.getDate()
-        } else {
-            finalText = weather.date ?? ""
-        }
-        cell?.textLabel?.text = finalText + "             \(weather.wind_speed.roundToDecimal(2))"
-        cell?.detailTextLabel?.text = String(describing: weather.wind_speed)
-        return cell!
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WeatherCell
+        cell.setData(weather: weather)
+        return cell
     }
 }
 
-extension WeatherViewController: UITableViewDelegate {
+extension WeatherViewController: UICollectionViewDelegateFlowLayout {
+    // 1
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: 150, height: 100)
+    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // 3
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    // 4
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return sectionInsets.left
+    }
+}
+
+extension WeatherViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let weather = weathers[indexPath.row]
         let weatherDetailsView = WeatherDetailsRouter.createModule()
         weatherDetailsView.weather = weather
         self.navigationController?.pushViewController(weatherDetailsView, animated: true)
     }
-    
 }
 
 extension WeatherViewController: CLLocationManagerDelegate {

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -142,7 +143,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhA-St-2hU" customClass="KGRadioButton" customModule="RadioButton" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhA-St-2hU" customClass="KGRadioButton" customModule="WeatherReport" customModuleProvider="target">
                                 <rect key="frame" x="42" y="138" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
@@ -157,7 +158,7 @@
                                     <action selector="radioButton1ClickedWithSender:" destination="DWu-iJ-uOk" eventType="touchUpInside" id="eWy-qS-lZW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIe-c1-Vm4" customClass="KGRadioButton" customModule="RadioButton" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIe-c1-Vm4" customClass="KGRadioButton" customModule="WeatherReport" customModuleProvider="target">
                                 <rect key="frame" x="44" y="188" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
@@ -230,27 +231,71 @@
                                     <constraint firstItem="AYj-yb-Os8" firstAttribute="centerX" secondItem="hVf-cV-i3G" secondAttribute="centerX" id="BpY-ML-h5m"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FNs-hy-rCF">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KQo-6H-jA1">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="5I6-hk-xwN">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5I6-hk-xwN" id="F64-Tw-He4">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="100"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Y1X-HF-hFx">
+                                    <size key="itemSize" width="180" height="140"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="6Et-Fs-0mp" customClass="WeatherCell" customModule="WeatherReport" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FrO-eP-6r3">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsd-iV-2wq">
+                                                    <rect key="frame" x="5" y="5" width="170" height="130"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IRq-OY-mYb">
+                                                            <rect key="frame" x="20" y="10" width="100" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="opU-YB-EYs">
+                                                            <rect key="frame" x="20" y="20" width="140" height="70"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Jsd-iV-2wq" secondAttribute="trailing" constant="5" id="Ihb-Yk-PP1"/>
+                                                <constraint firstItem="Jsd-iV-2wq" firstAttribute="top" secondItem="FrO-eP-6r3" secondAttribute="top" constant="5" id="ObT-xe-oD7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Jsd-iV-2wq" secondAttribute="bottom" constant="5" id="QGu-dS-Ex2"/>
+                                                <constraint firstItem="Jsd-iV-2wq" firstAttribute="leading" secondItem="FrO-eP-6r3" secondAttribute="leading" constant="5" id="SAV-54-08d"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="180" height="140"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="IRq-OY-mYb" id="Das-lj-UjN"/>
+                                            <outlet property="mainView" destination="Jsd-iV-2wq" id="KXV-mk-AlV"/>
+                                            <outlet property="temperatureLabel" destination="opU-YB-EYs" id="xdy-F8-tYQ"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="OqZ-h6-X1I" id="kcr-Cj-jIr"/>
+                                    <outlet property="delegate" destination="OqZ-h6-X1I" id="hSH-d7-giW"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="FNs-hy-rCF" firstAttribute="leading" secondItem="3JO-79-aku" secondAttribute="leading" id="OmX-xP-29k"/>
-                            <constraint firstItem="FNs-hy-rCF" firstAttribute="top" secondItem="3JO-79-aku" secondAttribute="top" id="SfC-8V-YAY"/>
-                            <constraint firstItem="3JO-79-aku" firstAttribute="bottom" secondItem="FNs-hy-rCF" secondAttribute="bottom" id="cbW-ja-6RE"/>
-                            <constraint firstItem="3JO-79-aku" firstAttribute="trailing" secondItem="FNs-hy-rCF" secondAttribute="trailing" id="p3O-5T-zEK"/>
+                            <constraint firstItem="3JO-79-aku" firstAttribute="bottom" secondItem="KQo-6H-jA1" secondAttribute="bottom" id="33d-oh-dFN"/>
+                            <constraint firstItem="KQo-6H-jA1" firstAttribute="leading" secondItem="3JO-79-aku" secondAttribute="leading" id="Mbc-jg-jK5"/>
+                            <constraint firstItem="KQo-6H-jA1" firstAttribute="top" secondItem="3JO-79-aku" secondAttribute="top" id="n59-97-PV4"/>
+                            <constraint firstItem="3JO-79-aku" firstAttribute="trailing" secondItem="KQo-6H-jA1" secondAttribute="trailing" id="oJK-oh-dOO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3JO-79-aku"/>
                     </view>
@@ -258,7 +303,7 @@
                     <navigationItem key="navigationItem" id="eZc-lN-AMA"/>
                     <connections>
                         <outlet property="activityView" destination="hVf-cV-i3G" id="DWo-5P-MgC"/>
-                        <outlet property="tableView" destination="FNs-hy-rCF" id="pUI-UQ-eSW"/>
+                        <outlet property="collectionView" destination="KQo-6H-jA1" id="7vd-5O-PYM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnQ-mT-JGs" sceneMemberID="firstResponder"/>
